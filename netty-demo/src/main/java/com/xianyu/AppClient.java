@@ -17,21 +17,22 @@ public class AppClient {
         NioEventLoopGroup group = new NioEventLoopGroup();
 
         //启动一个客户端需要一个辅助类，bootStrap
-        Bootstrap bootstrap = new Bootstrap();
-        bootstrap = bootstrap.group(group)
-                .remoteAddress(new InetSocketAddress(8080))
-                //选择初始化一个什么洋的channel
-                .channel(NioSocketChannel.class)
-                .handler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    protected void initChannel(SocketChannel socketChannel) {
-
-                    }
-                });
-
-        //尝试连接服务器
-        ChannelFuture channelFuture;
         try {
+            Bootstrap bootstrap = new Bootstrap();
+            bootstrap = bootstrap.group(group)
+                    .remoteAddress(new InetSocketAddress(8080))
+                    //选择初始化一个什么洋的channel
+                    .channel(NioSocketChannel.class)
+                    .handler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        protected void initChannel(SocketChannel socketChannel) {
+                            socketChannel.pipeline().addLast(new MyChannelHandler2());
+                        }
+                    });
+
+            //尝试连接服务器
+            ChannelFuture channelFuture;
+
             channelFuture = bootstrap.connect().sync();
             //获取channel，并且写入数据
             channelFuture.channel().writeAndFlush(Unpooled.copiedBuffer("hello netty!".getBytes(StandardCharsets.UTF_8)));
@@ -40,6 +41,12 @@ public class AppClient {
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                group.shutdownGracefully().sync();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
