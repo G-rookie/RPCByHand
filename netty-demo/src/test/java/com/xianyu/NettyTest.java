@@ -6,10 +6,14 @@ import io.netty.buffer.CompositeByteBuf;
 import io.netty.buffer.Unpooled;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 public class NettyTest {
 
@@ -81,5 +85,36 @@ public class NettyTest {
         }
 
         System.out.println("Binary representation:" + formattedBinary);
+    }
+
+
+    @Test
+    public void testCompress() throws IOException {
+        byte[] buf = {12, 23, 45, 22, 11, 78, 12, 23, 45, 22, 11, 78};
+
+        //本质就是将buf作为输入，将结果输出到了另一个字节数组当中
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        GZIPOutputStream gzipOutputStream = new GZIPOutputStream(outputStream);
+
+        gzipOutputStream.write(buf);
+        gzipOutputStream.finish();
+
+        byte[] bytes = outputStream.toByteArray();
+        System.out.println(buf.length + "--->" + bytes.length);
+        System.out.println(Arrays.toString(bytes));
+    }
+
+
+    @Test
+    public void testDecompress() throws IOException {
+        byte[] buf = {31, -117, 8, 0, 0, 0, 0, 0, 0, -1, -29, 17, -41, 21, -29, -10, -29, 1, -109, 0, -37, 109, 84, 72, 12, 0, 0, 0};
+
+        //本质就是将buf作为输入，将结果输出到了另一个字节数组当中
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(buf);
+        GZIPInputStream gzipInputStream = new GZIPInputStream(inputStream);
+
+        byte[] bytes = gzipInputStream.readAllBytes();
+        System.out.println(buf.length + "--->" + bytes.length);
+        System.out.println(Arrays.toString(bytes));
     }
 }
