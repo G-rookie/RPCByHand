@@ -24,6 +24,7 @@ public class ZookeeperTest {
         int timeout = 1000;
 
         try {
+            //new MyWatcher() 默认的监听器
             zooKeeper = new ZooKeeper(connectString, timeout, null);
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,6 +72,29 @@ public class ZookeeperTest {
             //当前子节点数据的版本
             int cversion = stat.getCversion();
             System.out.println("cversion = " + cversion);
+        } catch (KeeperException | InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (zooKeeper == null) {
+                    assert false;
+                    zooKeeper.close();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Test
+    public void testWatcher() {
+        try {
+            // version: cas 乐观锁 ， 也可以无视版本号 -1
+            zooKeeper.exists("/xianyu", true);
+
+            while (true) {
+                Thread.sleep(1000);
+            }
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
         } finally {
