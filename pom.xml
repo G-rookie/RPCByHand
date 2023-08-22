@@ -12,7 +12,7 @@
         <module>rpc-demo</module>
         <module>rpc-manager</module>
         <module>rpc-framework/rpc-core</module>
-        <module>rpc-demo/rpc-client-demo</module>
+        <module>rpc-demo/rpc-provider-demo</module>
         <module>rpc-demo/rpc-provider-demo</module>
         <module>rpc-demo/rpc-api</module>
     </modules>

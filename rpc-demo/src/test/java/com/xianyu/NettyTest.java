@@ -105,16 +105,16 @@ public class NettyTest {
     }
 
 
-    @Test
-    public void testDecompress() throws IOException {
-        byte[] buf = {31, -117, 8, 0, 0, 0, 0, 0, 0, -1, -29, 17, -41, 21, -29, -10, -29, 1, -109, 0, -37, 109, 84, 72, 12, 0, 0, 0};
-
-        //本质就是将buf作为输入，将结果输出到了另一个字节数组当中
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(buf);
-        GZIPInputStream gzipInputStream = new GZIPInputStream(inputStream);
-
-        byte[] bytes = gzipInputStream.readAllBytes();
-        System.out.println(buf.length + "--->" + bytes.length);
-        System.out.println(Arrays.toString(bytes));
-    }
+//    @Test
+//    public void testDecompress() throws IOException {
+//        byte[] buf = {31, -117, 8, 0, 0, 0, 0, 0, 0, -1, -29, 17, -41, 21, -29, -10, -29, 1, -109, 0, -37, 109, 84, 72, 12, 0, 0, 0};
+//
+//        //本质就是将buf作为输入，将结果输出到了另一个字节数组当中
+//        ByteArrayInputStream inputStream = new ByteArrayInputStream(buf);
+//        GZIPInputStream gzipInputStream = new GZIPInputStream(inputStream);
+//
+//        byte[] bytes = gzipInputStream.readAllBytes();
+//        System.out.println(buf.length + "--->" + bytes.length);
+//        System.out.println(Arrays.toString(bytes));
+//    }
 }

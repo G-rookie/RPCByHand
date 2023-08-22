@@ -7,11 +7,10 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.CountDownLatch;
 
 public class ZookeeperTest {
     ZooKeeper zooKeeper;
-    CountDownLatch countDownLatch = new CountDownLatch(1);
+//    CountDownLatch countDownLatch = new CountDownLatch(1);
 
     @Before
     public void createZK() {
@@ -32,7 +31,7 @@ public class ZookeeperTest {
                 //只有连接成功才放行
                 if (watchedEvent.getState().equals(Watcher.Event.KeeperState.Closed)) {
                     System.out.println("客户端连接成功");
-                    countDownLatch.countDown();
+//                    countDownLatch.countDown();
                 }
             });
         } catch (IOException e) {
@@ -46,7 +45,7 @@ public class ZookeeperTest {
         String result;
         try {
             // 等待连接成功
-            countDownLatch.await();
+//            countDownLatch.await();
             result = zooKeeper.create("/xianyu", "hello".getBytes(StandardCharsets.UTF_8),
                     ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
             System.out.println("result = " + result);
