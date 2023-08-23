@@ -1,5 +1,6 @@
 package com.xianyu;
 
+import com.xianyu.discovery.RegistryConfig;
 import com.xianyu.impl.HelloRPCImpl;
 
 public class Application {

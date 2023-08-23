@@ -1,5 +1,7 @@
 package com.xianyu;
 
+import com.xianyu.discovery.RegistryConfig;
+
 public class Application {
     public static void main(String[] args) {
 
