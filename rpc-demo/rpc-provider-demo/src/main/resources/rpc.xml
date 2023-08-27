@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration SYSTEM "rpc-config.dtd">
+<configuration>
+    
+    <port>8088</port>
+    <appName>rpc-default-appName</appName>
+    
+    <!--配置二选一-->
+    <serializeType type="hessian"/>
+    <serializer class="3" name="hessian" code="com.xianyu.serialize.impl.HessianSerializer"/>
+
+    <!--配置二选一-->
+    <compressType type="gzip"/>
+    <compressor class="1" name="gzip" code="com.xianyu.compress.impl.GzipCompressor"/>
+
+    <!--配置二选一-->
+    <loadBalancerType type="MinimumResponseTime"/>
+    <loadBalancer class="com.xianyu.loadbalancer.impl.MinimumResponseTimeLoadBalancer"/>
+
+    <idGenerator class="com.xianyu.utils.IdGenerator" dataCenterId="2" MachineId="4"/>
+</configuration>
