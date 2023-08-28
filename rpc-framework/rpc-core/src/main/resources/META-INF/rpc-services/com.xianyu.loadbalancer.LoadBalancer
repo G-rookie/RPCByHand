@@ -1,0 +1,3 @@
+com.xianyu.loadbalancer.impl.ConsistentHashBalancer
+com.xianyu.loadbalancer.impl.MinimumResponseTimeLoadBalancer
+com.xianyu.loadbalancer.impl.RoundRobinLoadBalancer
